@@ -1,37 +1,84 @@
 @extends('layouts.admin.app')
 @section('title', 'Data Tugas')
 
+@push('styles')
+<style>
+    /* DataTable header styling */
+    table.dataTable thead th {
+        background-color: #4e73df !important;
+        color: white !important;
+        font-weight: bold;
+        border: none;
+    }
+    
+    .btn-tambah {
+        background-color: #4e73df;
+        color: white;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+    .btn-tambah:hover {
+        background-color: #2e59d9;
+        color: white;
+    }
+    
+    .btn-excel {
+        background-color: #1cc88a;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+    .btn-excel:hover {
+        background-color: #17a673;
+        color: white;
+    }
+    
+    .btn-pdf {
+        background-color: #e74a3b;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+    .btn-pdf:hover {
+        background-color: #be2617;
+        color: white;
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-clipboard-list mr-2"></i>Data Tugas</h1>
-    <div>
-        <a href="{{ route('admin.tugas.export.pdf') }}" class="btn btn-sm btn-danger shadow-sm mr-1">
-            <i class="fas fa-file-pdf fa-sm"></i> Export PDF
-        </a>
-        <a href="{{ route('admin.tugas.export.excel') }}" class="btn btn-sm btn-success shadow-sm mr-1">
-            <i class="fas fa-file-excel fa-sm"></i> Export Excel
-        </a>
-        <button class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalTambah">
-            <i class="fas fa-plus fa-sm"></i> Tambah Data
-        </button>
-    </div>
+    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-list-alt mr-2"></i>Data Tugas</h1>
 </div>
 
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Daftar Tugas Karyawan</h6>
-    </div>
+<div class="card shadow border-0 mb-4">
     <div class="card-body">
+        
+        {{-- Header Buttons --}}
+        <div class="d-flex justify-content-between mb-4">
+            <a href="{{ route('admin.tugas.create') }}" class="btn btn-tambah px-3">
+                <i class="fas fa-plus mr-1"></i> Tambah Data
+            </a>
+            <div>
+                <a href="{{ route('admin.tugas.export.excel') }}" class="btn btn-excel px-3 mr-1">
+                    <i class="fas fa-file-excel mr-1"></i> Excel
+                </a>
+                <a href="{{ route('admin.tugas.export.pdf') }}" class="btn btn-pdf px-3">
+                    <i class="fas fa-file-pdf mr-1"></i> PDF
+                </a>
+            </div>
+        </div>
+
         <div class="table-responsive">
-            <table class="table table-bordered" id="tableTugas" width="100%" cellspacing="0">
+            <table class="table table-bordered table-striped" id="tableTugas" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Nama Karyawan</th>
+                        <th style="width: 60px;">No</th>
+                        <th>Nama</th>
                         <th>Tugas</th>
-                        <th>Tgl Mulai</th>
-                        <th>Tgl Selesai</th>
-                        <th>Aksi</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
+                        <th class="text-center" style="width: 140px;"><i class="fas fa-cog"></i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,32 +86,43 @@
                     <tr>
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $t->user->name ?? '-' }}</td>
-                        <td>{{ Str::limit($t->tugas, 50) }}</td>
-                        <td>{{ $t->tgl_mulai ? $t->tgl_mulai->format('d/m/Y') : '-' }}</td>
-                        <td>{{ $t->tgl_selesai ? $t->tgl_selesai->format('d/m/Y') : '-' }}</td>
+                        <td>{{ $t->tugas }}</td>
                         <td>
-                            <button class="btn btn-info btn-sm btn-detail"
+                            <span class="badge badge-pill text-white px-2 py-1" style="background-color: #36b9cc; font-size: 12px; border-radius: 12px;">
+                                {{ $t->tgl_mulai ? $t->tgl_mulai->format('Y-m-d') : '-' }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge badge-pill text-white px-2 py-1" style="background-color: #36b9cc; font-size: 12px; border-radius: 12px;">
+                                {{ $t->tgl_selesai ? $t->tgl_selesai->format('Y-m-d') : '-' }}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            {{-- Detail Button --}}
+                            <button class="btn btn-info btn-sm text-white px-2 py-1 mr-1 btn-detail"
+                                style="background-color: #36b9cc; border-color: #36b9cc;"
                                 data-nama="{{ $t->user->name ?? '-' }}"
+                                data-email="{{ $t->user->email ?? '-' }}"
                                 data-tugas="{{ $t->tugas }}"
-                                data-mulai="{{ $t->tgl_mulai ? $t->tgl_mulai->format('d/m/Y') : '-' }}"
-                                data-selesai="{{ $t->tgl_selesai ? $t->tgl_selesai->format('d/m/Y') : '-' }}"
+                                data-mulai="{{ $t->tgl_mulai ? $t->tgl_mulai->format('Y-m-d') : '-' }}"
+                                data-selesai="{{ $t->tgl_selesai ? $t->tgl_selesai->format('Y-m-d') : '-' }}"
                                 data-toggle="modal" data-target="#modalDetail">
-                                <i class="fas fa-eye"></i> Detail
+                                <i class="fas fa-eye"></i>
                             </button>
-                            <button class="btn btn-warning btn-sm btn-edit"
-                                data-id="{{ $t->id }}"
-                                data-user_id="{{ $t->user_id }}"
-                                data-tugas="{{ $t->tugas }}"
-                                data-mulai="{{ $t->tgl_mulai ? $t->tgl_mulai->format('Y-m-d') : '' }}"
-                                data-selesai="{{ $t->tgl_selesai ? $t->tgl_selesai->format('Y-m-d') : '' }}"
-                                data-toggle="modal" data-target="#modalEdit">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm btn-hapus"
+                            
+                            {{-- Edit Button --}}
+                            <a href="{{ route('admin.tugas.edit', $t->id) }}" class="btn btn-warning btn-sm text-white px-2 py-1 mr-1" style="background-color: #f6c23e; border-color: #f6c23e;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            
+                            {{-- Delete Button --}}
+                            <button class="btn btn-danger btn-sm px-2 py-1 btn-hapus"
                                 data-id="{{ $t->id }}"
                                 data-nama="{{ $t->user->name ?? '-' }}"
+                                data-email="{{ $t->user->email ?? '-' }}"
+                                data-tugas="{{ $t->tugas }}"
                                 data-toggle="modal" data-target="#modalHapus">
-                                <i class="fas fa-trash"></i> Hapus
+                                <i class="fas fa-trash"></i>
                             </button>
                         </td>
                     </tr>
@@ -75,132 +133,88 @@
     </div>
 </div>
 
-<!-- Modal Tambah -->
-<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="{{ route('admin.tugas.store') }}" method="POST">
-                @csrf
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title"><i class="fas fa-plus mr-1"></i> Tambah Tugas</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Nama Karyawan <span class="text-danger">*</span></label>
-                        <select name="user_id" class="form-control" required>
-                            <option value="">-- Pilih Karyawan --</option>
-                            @foreach($karyawan as $k)
-                                <option value="{{ $k->id }}">{{ $k->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Deskripsi Tugas <span class="text-danger">*</span></label>
-                        <textarea name="tugas" class="form-control" rows="4" required placeholder="Masukkan deskripsi tugas..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal Mulai <span class="text-danger">*</span></label>
-                        <input type="date" name="tgl_mulai" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal Selesai <span class="text-danger">*</span></label>
-                        <input type="date" name="tgl_selesai" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <!-- Modal Detail -->
 <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-info text-white">
-                <h5 class="modal-title"><i class="fas fa-eye mr-1"></i> Detail Tugas</h5>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white border-0" style="background-color: #4e73df;">
+                <h5 class="modal-title font-weight-bold">Detail Data</h5>
                 <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
             </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <tr><th width="140">Nama Karyawan</th><td id="detailNama"></td></tr>
-                    <tr><th>Tugas</th><td id="detailTugas" style="white-space:pre-wrap;"></td></tr>
-                    <tr><th>Tgl Mulai</th><td id="detailMulai"></td></tr>
-                    <tr><th>Tgl Selesai</th><td id="detailSelesai"></td></tr>
+            <div class="modal-body p-4">
+                <table class="table table-borderless m-0">
+                    <tr>
+                        <td class="text-gray-600" style="width: 140px; padding: 6px 0; font-weight: 500;">Nama</td>
+                        <td style="width: 20px; padding: 6px 0;">:</td>
+                        <td id="detailNama" style="padding: 6px 0;"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-600" style="padding: 6px 0; font-weight: 500;">Email</td>
+                        <td style="padding: 6px 0;">:</td>
+                        <td id="detailEmail" style="padding: 6px 0;"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-600" style="padding: 6px 0; font-weight: 500;">Tugas</td>
+                        <td style="padding: 6px 0;">:</td>
+                        <td id="detailTugas" style="padding: 6px 0;"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-600" style="padding: 6px 0; font-weight: 500;">Tanggal Mulai</td>
+                        <td style="padding: 6px 0;">:</td>
+                        <td style="padding: 6px 0;">
+                            <span id="detailMulai" class="badge text-white px-2 py-1" style="background-color: #36b9cc; font-size: 12px; border-radius: 4px;"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-600" style="padding: 6px 0; font-weight: 500;">Tanggal Selesai</td>
+                        <td style="padding: 6px 0;">:</td>
+                        <td style="padding: 6px 0;">
+                            <span id="detailSelesai" class="badge text-white px-2 py-1" style="background-color: #36b9cc; font-size: 12px; border-radius: 4px;"></span>
+                        </td>
+                    </tr>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Edit -->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="formEdit" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="modal-header bg-warning text-white">
-                    <h5 class="modal-title"><i class="fas fa-edit mr-1"></i> Edit Tugas</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Nama Karyawan <span class="text-danger">*</span></label>
-                        <select name="user_id" id="editUserId" class="form-control" required>
-                            <option value="">-- Pilih Karyawan --</option>
-                            @foreach($karyawan as $k)
-                                <option value="{{ $k->id }}">{{ $k->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Deskripsi Tugas <span class="text-danger">*</span></label>
-                        <textarea name="tugas" id="editTugas" class="form-control" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal Mulai <span class="text-danger">*</span></label>
-                        <input type="date" name="tgl_mulai" id="editMulai" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal Selesai <span class="text-danger">*</span></label>
-                        <input type="date" name="tgl_selesai" id="editSelesai" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning text-white"><i class="fas fa-save mr-1"></i>Update</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
 
 <!-- Modal Hapus -->
 <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow">
             <form id="formHapus" method="POST">
                 @csrf
                 @method('DELETE')
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title"><i class="fas fa-trash mr-1"></i> Hapus Tugas</h5>
+                <div class="modal-header bg-danger text-white border-0">
+                    <h5 class="modal-title font-weight-bold">Konfirmasi Penghapusan Data ?</h5>
                     <button type="button" class="close text-white" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-                <div class="modal-body">
-                    <p>Hapus tugas dari karyawan <strong id="hapusNama"></strong>?</p>
-                    <p class="text-danger"><small>Data yang dihapus tidak dapat dikembalikan.</small></p>
+                <div class="modal-body p-4">
+                    <table class="table table-borderless m-0">
+                        <tr>
+                            <td class="text-gray-600" style="width: 140px; padding: 6px 0; font-weight: 500;">Nama</td>
+                            <td style="width: 20px; padding: 6px 0;">:</td>
+                            <td id="hapusNama" style="padding: 6px 0; font-weight: 500;"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-600" style="padding: 6px 0; font-weight: 500;">Email</td>
+                            <td style="padding: 6px 0;">:</td>
+                            <td id="hapusEmail" style="padding: 6px 0;"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-gray-600" style="padding: 6px 0; font-weight: 500;">Tugas</td>
+                            <td style="padding: 6px 0;">:</td>
+                            <td id="hapusTugas" style="padding: 6px 0;"></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash mr-1"></i>Hapus</button>
+                <div class="modal-footer border-0 d-flex justify-content-end p-3">
+                    <button type="button" class="btn btn-secondary px-3 mr-1" data-dismiss="modal" style="background-color: #6e707e; border-color: #6e707e;">
+                        <i class="fas fa-times mr-1"></i> Tutup
+                    </button>
+                    <button type="submit" class="btn btn-danger px-3">
+                        <i class="fas fa-check mr-1"></i> OK
+                    </button>
                 </div>
             </form>
         </div>
@@ -211,30 +225,33 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    $('#tableTugas').DataTable({ language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json' } });
+    $('#tableTugas').DataTable({
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json'
+        }
+    });
 
-    // Detail
+    // Detail Action
     $('.btn-detail').on('click', function() {
         $('#detailNama').text($(this).data('nama'));
+        $('#detailEmail').text($(this).data('email'));
         $('#detailTugas').text($(this).data('tugas'));
         $('#detailMulai').text($(this).data('mulai'));
         $('#detailSelesai').text($(this).data('selesai'));
     });
 
-    // Edit
-    $('.btn-edit').on('click', function() {
-        const id = $(this).data('id');
-        $('#editUserId').val($(this).data('user_id'));
-        $('#editTugas').val($(this).data('tugas'));
-        $('#editMulai').val($(this).data('mulai'));
-        $('#editSelesai').val($(this).data('selesai'));
-        $('#formEdit').attr('action', '/admin/tugas/' + id);
-    });
-
-    // Hapus
+    // Hapus Action
     $('.btn-hapus').on('click', function() {
-        $('#hapusNama').text($(this).data('nama'));
-        $('#formHapus').attr('action', '/admin/tugas/' + $(this).data('id'));
+        const id = $(this).data('id');
+        const name = $(this).data('nama');
+        const email = $(this).data('email');
+        const tugas = $(this).data('tugas');
+        
+        $('#hapusNama').text(name);
+        $('#hapusEmail').text(email);
+        $('#hapusTugas').text(tugas);
+        
+        $('#formHapus').attr('action', '/admin/tugas/' + id);
     });
 });
 </script>

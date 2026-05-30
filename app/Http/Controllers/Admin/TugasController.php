@@ -15,8 +15,13 @@ class TugasController extends Controller
     public function index()
     {
         $tugas     = Tugas::with('user')->get();
-        $karyawan  = User::where('jabatan', 'karyawan')->get();
-        return view('admin.tugas.index', compact('tugas', 'karyawan'));
+        return view('admin.tugas.index', compact('tugas'));
+    }
+
+    public function create()
+    {
+        $karyawan = User::where('jabatan', 'karyawan')->get();
+        return view('admin.tugas.create', compact('karyawan'));
     }
 
     public function store(Request $request)
@@ -26,6 +31,13 @@ class TugasController extends Controller
             'tugas'       => 'required|string',
             'tgl_mulai'   => 'required|date',
             'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai',
+        ], [
+            'user_id.required'     => 'Karyawan harus dipilih.',
+            'user_id.exists'       => 'Karyawan tidak valid.',
+            'tugas.required'       => 'Tugas tidak boleh kosong.',
+            'tgl_mulai.required'   => 'Tanggal mulai harus diisi.',
+            'tgl_selesai.required' => 'Tanggal selesai harus diisi.',
+            'tgl_selesai.after_or_equal' => 'Tanggal selesai tidak boleh sebelum tanggal mulai.',
         ]);
 
         Tugas::create($request->only(['user_id', 'tugas', 'tgl_mulai', 'tgl_selesai']));
@@ -36,24 +48,38 @@ class TugasController extends Controller
         return redirect()->route('admin.tugas.index')->with('success', 'Tugas berhasil ditambahkan.');
     }
 
-    public function show(Tugas $tugas)
+    public function edit(Tugas $tuga)
     {
-        $tugas->load('user');
-        return response()->json($tugas);
+        $tugas = $tuga;
+        $karyawan = User::where('jabatan', 'karyawan')->get();
+        return view('admin.tugas.edit', compact('tugas', 'karyawan'));
     }
 
-    public function update(Request $request, Tugas $tugas)
+    public function show(Tugas $tuga)
+    {
+        $tuga->load('user');
+        return response()->json($tuga);
+    }
+
+    public function update(Request $request, Tugas $tuga)
     {
         $request->validate([
             'user_id'     => 'required|exists:users,id',
             'tugas'       => 'required|string',
             'tgl_mulai'   => 'required|date',
             'tgl_selesai' => 'required|date|after_or_equal:tgl_mulai',
+        ], [
+            'user_id.required'     => 'Karyawan harus dipilih.',
+            'user_id.exists'       => 'Karyawan tidak valid.',
+            'tugas.required'       => 'Tugas tidak boleh kosong.',
+            'tgl_mulai.required'   => 'Tanggal mulai harus diisi.',
+            'tgl_selesai.required' => 'Tanggal selesai harus diisi.',
+            'tgl_selesai.after_or_equal' => 'Tanggal selesai tidak boleh sebelum tanggal mulai.',
         ]);
 
-        $oldUserId = $tugas->user_id;
+        $oldUserId = $tuga->user_id;
 
-        $tugas->update($request->only(['user_id', 'tugas', 'tgl_mulai', 'tgl_selesai']));
+        $tuga->update($request->only(['user_id', 'tugas', 'tgl_mulai', 'tgl_selesai']));
 
         // Update status karyawan baru menjadi ditugaskan
         User::where('id', $request->user_id)->update(['status' => 'ditugaskan']);
@@ -69,10 +95,10 @@ class TugasController extends Controller
         return redirect()->route('admin.tugas.index')->with('success', 'Tugas berhasil diupdate.');
     }
 
-    public function destroy(Tugas $tugas)
+    public function destroy(Tugas $tuga)
     {
-        $userId = $tugas->user_id;
-        $tugas->delete();
+        $userId = $tuga->user_id;
+        $tuga->delete();
 
         // Jika karyawan tidak punya tugas lagi, set belum_ditugaskan
         $sisaTugas = Tugas::where('user_id', $userId)->count();
@@ -92,6 +118,7 @@ class TugasController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new TugasExport, 'data-tugas.xlsx');
+        $filename = 'DataTugas-' . now()->format('d-m-Y H.i.s') . '.xlsx';
+        return Excel::download(new TugasExport, $filename);
     }
 }

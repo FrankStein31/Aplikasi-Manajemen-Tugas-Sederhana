@@ -39,13 +39,15 @@ Route::prefix('admin')->name('admin.')->middleware(['is_login', 'is_admin'])->gr
     Route::delete('/user/{user}', [AdminUser::class, 'destroy'])->name('user.destroy');
 
     // Tugas
-    Route::get('/tugas', [AdminTugas::class, 'index'])->name('tugas.index');
-    Route::post('/tugas', [AdminTugas::class, 'store'])->name('tugas.store');
-    Route::get('/tugas/{tugas}', [AdminTugas::class, 'show'])->name('tugas.show');
-    Route::put('/tugas/{tugas}', [AdminTugas::class, 'update'])->name('tugas.update');
-    Route::delete('/tugas/{tugas}', [AdminTugas::class, 'destroy'])->name('tugas.destroy');
     Route::get('/tugas/export/pdf', [AdminTugas::class, 'exportPdf'])->name('tugas.export.pdf');
     Route::get('/tugas/export/excel', [AdminTugas::class, 'exportExcel'])->name('tugas.export.excel');
+    Route::get('/tugas', [AdminTugas::class, 'index'])->name('tugas.index');
+    Route::get('/tugas/create', [AdminTugas::class, 'create'])->name('tugas.create');
+    Route::post('/tugas', [AdminTugas::class, 'store'])->name('tugas.store');
+    Route::get('/tugas/{tuga}', [AdminTugas::class, 'show'])->name('tugas.show');
+    Route::get('/tugas/{tuga}/edit', [AdminTugas::class, 'edit'])->name('tugas.edit');
+    Route::put('/tugas/{tuga}', [AdminTugas::class, 'update'])->name('tugas.update');
+    Route::delete('/tugas/{tuga}', [AdminTugas::class, 'destroy'])->name('tugas.destroy');
 });
 
 // ─── Karyawan ─────────────────────────────────────────────────────────────────

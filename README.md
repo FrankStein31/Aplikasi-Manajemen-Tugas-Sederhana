@@ -1,58 +1,138 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# M-Tugas — Aplikasi Manajemen Tugas Sederhana
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+M-Tugas adalah aplikasi manajemen tugas berbasis web yang dirancang untuk mendistribusikan, memantau, dan mengelola pekerjaan karyawan secara terstruktur dan transparan. Aplikasi ini dibangun menggunakan **Laravel 13** dengan frontend yang terintegrasi secara modular menggunakan template **SB Admin 2**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🌐 Landing Page (Umum)
+*   **Beranda**: Tampilan antarmuka yang bersih dan interaktif dilengkapi tombol pintas login atau dashboard jika sesi aktif terdeteksi.
+*   **Tentang Kami**: Penjelasan singkat mengenai sistem, fungsi, dan poin keunggulan aplikasi.
+*   **Kontak**: Informasi kontak statis (alamat, WhatsApp, email, dan Google Maps).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🔑 Autentikasi & Sesi
+*   Sistem login & logout dengan validasi form yang aman.
+*   Menggunakan session-based authentication berbasis file (`SESSION_DRIVER=file`) untuk manajemen sesi mandiri yang ringan dan andal.
 
-## Learning Laravel
+### 👤 Modul Admin
+*   **Dashboard**: Statistik total user, total admin, total karyawan, serta jumlah karyawan berstatus "Ditugaskan" dan "Belum Ditugaskan".
+*   **Kelola Data User (CRUD)**:
+    *   Pengelolaan data pengguna (nama, email, jabatan, status, password).
+    *   Integrasi pencarian & penomoran halaman menggunakan **DataTables**.
+    *   Ekspor data ke format **Excel** dan **PDF** dengan desain kustom yang rapi.
+    *   Popup konfirmasi penghapusan data kustom interaktif.
+    *   Pengalihan halaman (bukan modal) untuk form tambah dan ubah data.
+*   **Kelola Data Tugas (CRUD)**:
+    *   Penugasan tugas baru kepada karyawan.
+    *   Perubahan status otomatis karyawan secara real-time (*belum ditugaskan* $\leftrightarrow$ *ditugaskan*).
+    *   Popup modal informasi detail tugas.
+    *   Ekspor data tugas ke format **Excel** dan **PDF**.
+*   **Edit Password**: Halaman ganti password dengan validasi verifikasi kecocokan password lama.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 💼 Modul Karyawan
+*   **Dashboard**: Menampilkan informasi ringkasan status tugas pribadi (apakah sudah ditugaskan atau belum).
+*   **Data Tugas**:
+    *   Detail tugas yang sedang dikerjakan (nama, email, deskripsi tugas, tanggal mulai, dan tanggal selesai).
+    *   Cetak tugas pribadi langsung ke format **PDF** sesuai template resmi.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 🛠️ Spesifikasi Teknologi
+*   **Framework Backend**: Laravel 13 (PHP 8.2+)
+*   **Framework CSS**: Bootstrap 4.6 (SB Admin 2)
+*   **Libraries**:
+    *   `barryvdh/laravel-dompdf` (Ekspor PDF)
+    *   `maatwebsite/excel` / `PhpSpreadsheet` (Ekspor Excel)
+    *   `DataTables` & `jQuery` (Interaktivitas tabel)
+    *   `Font Awesome` (Icons)
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## ⚙️ Langkah Pemasangan & Instalasi
 
-```bash
-composer require laravel/boost --dev
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lokal Anda:
 
-php artisan boost:install
+1.  **Clone Repositori**
+    ```bash
+    git clone https://github.com/FrankStein31/Aplikasi-Manajemen-Tugas-Sederhana.git
+    cd Aplikasi-Manajemen-Tugas-Sederhana
+    ```
+
+2.  **Instal Dependensi PHP**
+    ```bash
+    composer install
+    ```
+
+3.  **Salin dan Sesuaikan Environment**
+    Salin file `.env.example` ke `.env`:
+    ```bash
+    cp .env.example .env
+    ```
+    Buka `.env` dan konfigurasikan koneksi database Anda:
+    ```env
+    APP_NAME=M-Tugas
+    APP_URL=http://127.0.0.1:8000
+
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nama_database_anda
+    DB_USERNAME=root
+    DB_PASSWORD=
+    
+    SESSION_DRIVER=file
+    ```
+
+4.  **Generate Application Key**
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  **Jalankan Migrasi & Database Seeder**
+    Jalankan perintah ini untuk membuat tabel database beserta data akun demo bawaan:
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6.  **Jalankan Server Lokal**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi dapat diakses di browser melalui tautan `http://127.0.0.1:8000`.
+
+---
+
+## 🔑 Akun Demo Pengujian
+Gunakan kredensial berikut untuk melakukan login pengujian:
+
+*   **Akun Admin**:
+    *   **Email**: `admin@gmail.com`
+    *   **Password**: `password`
+*   **Akun Karyawan**:
+    *   **Email**: `karyawan@gmail.com`
+    *   **Password**: `password`
+
+---
+
+## 📂 Struktur Direktori Utama View
+Struktur view Blade yang terorganisir dengan rapi dan modular:
+```text
+resources/views/
+├── admin/
+│   ├── dashboard/
+│   ├── profile/
+│   ├── tugas/
+│   └── user/
+├── karyawan/
+│   ├── dashboard/
+│   └── tugas/
+├── auth/
+├── landing/
+└── layouts/
+    ├── admin/
+    └── karyawan/
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+*M-Tugas — Dikembangkan untuk memenuhi kebutuhan manajemen tugas internal secara andal.*

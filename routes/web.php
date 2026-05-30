@@ -29,12 +29,14 @@ Route::prefix('admin')->name('admin.')->middleware(['is_login', 'is_admin'])->gr
     Route::put('/profile/update', [AdminProfile::class, 'update'])->name('profile.update');
 
     // Users
-    Route::get('/user', [AdminUser::class, 'index'])->name('user.index');
-    Route::post('/user', [AdminUser::class, 'store'])->name('user.store');
-    Route::put('/user/{user}', [AdminUser::class, 'update'])->name('user.update');
-    Route::delete('/user/{user}', [AdminUser::class, 'destroy'])->name('user.destroy');
     Route::get('/user/export/pdf', [AdminUser::class, 'exportPdf'])->name('user.export.pdf');
     Route::get('/user/export/excel', [AdminUser::class, 'exportExcel'])->name('user.export.excel');
+    Route::get('/user', [AdminUser::class, 'index'])->name('user.index');
+    Route::get('/user/create', [AdminUser::class, 'create'])->name('user.create');
+    Route::post('/user', [AdminUser::class, 'store'])->name('user.store');
+    Route::get('/user/{user}/edit', [AdminUser::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}', [AdminUser::class, 'update'])->name('user.update');
+    Route::delete('/user/{user}', [AdminUser::class, 'destroy'])->name('user.destroy');
 
     // Tugas
     Route::get('/tugas', [AdminTugas::class, 'index'])->name('tugas.index');

@@ -18,41 +18,66 @@ class UserController extends Controller
         return view('admin.user.index', compact('users'));
     }
 
+    public function create()
+    {
+        return view('admin.user.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'jabatan'  => 'required|in:admin,karyawan',
-            'status'   => 'required|in:ditugaskan,belum_ditugaskan',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
+        ], [
+            'name.required'     => 'Nama tidak boleh kosong.',
+            'email.required'    => 'Email tidak boleh kosong.',
+            'email.email'       => 'Format email tidak valid.',
+            'email.unique'      => 'Email sudah terdaftar.',
+            'jabatan.required'  => 'Jabatan harus dipilih.',
+            'password.required' => 'Password tidak boleh kosong.',
+            'password.min'      => 'Password minimal 6 karakter.',
+            'password.confirmed'=> 'Konfirmasi password tidak cocok.',
         ]);
 
         User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'jabatan'  => $request->jabatan,
-            'status'   => $request->status,
+            'status'   => 'belum_ditugaskan', // Default status
             'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('admin.user.index')->with('success', 'Data user berhasil ditambahkan.');
     }
 
+    public function edit(User $user)
+    {
+        return view('admin.user.edit', compact('user'));
+    }
+
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'required|email|unique:users,email,' . $user->id,
-            'jabatan' => 'required|in:admin,karyawan',
-            'status'  => 'required|in:ditugaskan,belum_ditugaskan',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,' . $user->id,
+            'jabatan'  => 'required|in:admin,karyawan',
+            'password' => 'nullable|min:6|confirmed',
+        ], [
+            'name.required'    => 'Nama tidak boleh kosong.',
+            'email.required'   => 'Email tidak boleh kosong.',
+            'email.email'      => 'Format email tidak valid.',
+            'email.unique'     => 'Email sudah terdaftar.',
+            'jabatan.required' => 'Jabatan harus dipilih.',
+            'password.min'     => 'Password minimal 6 karakter.',
+            'password.confirmed'=> 'Konfirmasi password tidak cocok.',
         ]);
 
         $data = [
             'name'    => $request->name,
             'email'   => $request->email,
             'jabatan' => $request->jabatan,
-            'status'  => $request->status,
         ];
 
         if ($request->filled('password')) {
@@ -79,6 +104,7 @@ class UserController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new UsersExport, 'data-user.xlsx');
+        $filename = 'DataUser-' . now()->format('d-m-Y H.i.s') . '.xlsx';
+        return Excel::download(new UsersExport, $filename);
     }
 }

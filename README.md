@@ -7,9 +7,10 @@ M-Tugas adalah aplikasi manajemen tugas berbasis web yang dirancang untuk mendis
 ## 📸 Dokumentasi & Screenshot
 
 <details>
-  <summary><b>Klik untuk melihat Galeri Screenshot Aplikasi</b></summary>
+  <summary>🔍 <b>[KLIK DI SINI] UNTUK MEMBUKA GALERI LENGKAP SCREENSHOT APLIKASI</b> 🔍</summary>
   <br>
-  
+
+  <h3>🌐 Tampilan Umum & Dasbor</h3>
   <table width="100%">
     <tr>
       <td width="50%" align="center"><b>Landing Page</b><br><br><img src="https://github.com/user-attachments/assets/c12ef3b1-f87b-4080-b7be-7a1c4b00fdf7" width="100%" /></td>
@@ -20,53 +21,57 @@ M-Tugas adalah aplikasi manajemen tugas berbasis web yang dirancang untuk mendis
       <td align="center"><br><b>Edit Password Admin</b><br><br><img src="https://github.com/user-attachments/assets/34d7577e-ea54-401d-a88e-56163a42cece" width="100%" /></td>
     </tr>
     <tr>
-      <td align="center"><br><b>Kelola Data User</b><br><br><img src="https://github.com/user-attachments/assets/57c7ffa4-0e8c-47da-b57a-7a25604542c5" width="100%" /></td>
-      <td align="center"><br><b>Kelola Data Tugas</b><br><br><img src="https://github.com/user-attachments/assets/eb4c4e09-8bde-41e2-8f06-20098bbbc41f" width="100%" /></td>
-    </tr>
-    <tr>
       <td align="center"><br><b>Dashboard Karyawan</b><br><br><img src="https://github.com/user-attachments/assets/e189d43e-2818-4e44-b43b-669b1c1e0f64" width="100%" /></td>
-      <td align="center"><br><b>Halaman Data Tugas Karyawan</b><br><br><img src="https://github.com/user-attachments/assets/5983ecc6-0b7d-4e84-941c-10e7541b3ba8" width="100%" /></td>
+      <td align="center"></td>
     </tr>
   </table>
 
-Tambah User
-<img width="1772" height="1015" alt="image" src="https://github.com/user-attachments/assets/3b88d822-bf5d-4073-9db9-593779337fed" />
+  <br>
+  <h3>👤 Modul Kelola User (Admin)</h3>
+  <table width="100%">
+    <tr>
+      <td width="50%" align="center"><b>Kelola Data User (Index)</b><br><br><img src="https://github.com/user-attachments/assets/57c7ffa4-0e8c-47da-b57a-7a25604542c5" width="100%" /></td>
+      <td width="50%" align="center"><b>Tambah User</b><br><br><img src="https://github.com/user-attachments/assets/3b88d822-bf5d-4073-9db9-593779337fed" width="100%" /></td>
+    </tr>
+    <tr>
+      <td align="center"><br><b>Edit User</b><br><br><img src="https://github.com/user-attachments/assets/c0e89363-137f-4601-ba7d-f4c89e1031d8" width="100%" /></td>
+      <td align="center"><br><b>Popup Konfirmasi Hapus User</b><br><br><img src="https://github.com/user-attachments/assets/1f753c2b-237c-452b-911a-299601a4e523" width="100%" /></td>
+    </tr>
+    <tr>
+      <td align="center"><br><b>Hasil Export Excel User</b><br><br><img src="https://github.com/user-attachments/assets/59dcd68a-1475-471f-88ef-5cde1f17ae3a" width="100%" /></td>
+      <td align="center"><br><b>Hasil Export PDF User</b><br><br><img src="https://github.com/user-attachments/assets/3a7e9db1-c9c6-410a-9c5e-378b7c2887a0" width="100%" /></td>
+    </tr>
+  </table>
 
-Edit User
-<img width="1770" height="1022" alt="image" src="https://github.com/user-attachments/assets/c0e89363-137f-4601-ba7d-f4c89e1031d8" />
+  <br>
+  <h3>📋 Modul Kelola Tugas (Admin)</h3>
+  <table width="100%">
+    <tr>
+      <td width="50%" align="center"><b>Kelola Data Tugas (Index)</b><br><br><img src="https://github.com/user-attachments/assets/eb4c4e09-8bde-41e2-8f06-20098bbbc41f" width="100%" /></td>
+      <td width="50%" align="center"><b>Tambah Tugas</b><br><br><img src="https://github.com/user-attachments/assets/8cc0d4b3-4f95-41a1-ae2c-6d2037343c3d" width="100%" /></td>
+    </tr>
+    <tr>
+      <td align="center"><br><b>Edit Tugas</b><br><br><img src="https://github.com/user-attachments/assets/6a040b45-9f33-4ba4-b36c-d373b623fe37" width="100%" /></td>
+      <td align="center"><br><b>Popup Konfirmasi Hapus Tugas</b><br><br><img src="https://github.com/user-attachments/assets/b207c61e-2b48-4c5c-9b07-a82dd55294f7" width="100%" /></td>
+    </tr>
+    <tr>
+      <td align="center"><br><b>Modal Detail Data Tugas</b><br><br><img src="https://github.com/user-attachments/assets/87e3fc48-a459-4506-8a9e-c0a676f36803" width="100%" /></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td align="center"><br><b>Hasil Export Excel Tugas</b><br><br><img src="https://github.com/user-attachments/assets/53766cd7-52da-4366-8aac-caf2e9320999" width="100%" /></td>
+      <td align="center"><br><b>Hasil Export PDF Tugas</b><br><br><img src="https://github.com/user-attachments/assets/1284b198-e167-4cff-93e1-35c3bced72e3" width="100%" /></td>
+    </tr>
+  </table>
 
-Hapus User
-<img width="1766" height="1017" alt="image" src="https://github.com/user-attachments/assets/1f753c2b-237c-452b-911a-299601a4e523" />
-
-Export Excel
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/59dcd68a-1475-471f-88ef-5cde1f17ae3a" />
-
-Export PDF
-<img width="1771" height="1016" alt="image" src="https://github.com/user-attachments/assets/3a7e9db1-c9c6-410a-9c5e-378b7c2887a0" />
-
-Tambah Tugas
-<img width="1771" height="1018" alt="image" src="https://github.com/user-attachments/assets/8cc0d4b3-4f95-41a1-ae2c-6d2037343c3d" />
-
-Edit Tugas
-<img width="1769" height="1018" alt="image" src="https://github.com/user-attachments/assets/6a040b45-9f33-4ba4-b36c-d373b623fe37" />
-
-Hapus Tugas
-<img width="1771" height="1016" alt="image" src="https://github.com/user-attachments/assets/b207c61e-2b48-4c5c-9b07-a82dd55294f7" />
-
-Detail Data Tugas
-<img width="1768" height="1014" alt="image" src="https://github.com/user-attachments/assets/87e3fc48-a459-4506-8a9e-c0a676f36803" />
-
-Export Excel Tugas
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/53766cd7-52da-4366-8aac-caf2e9320999" />
-
-Export PDF Tugas
-<img width="1766" height="1004" alt="image" src="https://github.com/user-attachments/assets/1284b198-e167-4cff-93e1-35c3bced72e3" />
-
-Export PDF Tugas Karyawan
-<img width="1777" height="1012" alt="image" src="https://github.com/user-attachments/assets/9eba5ea1-be41-43c5-b35b-90888ecc90bd" />
-
-
-  
+  <br>
+  <h3>💼 Modul Tugas Karyawan</h3>
+  <table width="100%">
+    <tr>
+      <td width="50%" align="center"><b>Halaman Data Tugas Karyawan</b><br><br><img src="https://github.com/user-attachments/assets/5983ecc6-0b7d-4e84-941c-10e7541b3ba8" width="100%" /></td>
+      <td width="50%" align="center"><b>Cetak PDF Tugas Karyawan</b><br><br><img src="https://github.com/user-attachments/assets/9eba5ea1-be41-43c5-b35b-90888ecc90bd" width="100%" /></td>
+    </tr>
+  </table>
 </details>
 
 ---

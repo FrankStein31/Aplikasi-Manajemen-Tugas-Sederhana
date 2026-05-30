@@ -2,51 +2,102 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Tugas Saya - {{ $user->name }}</title>
+    <title>Data Tugas - {{ $user->name }}</title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 13px; margin: 30px; color: #2d3748; }
-        .header { text-align: center; border-bottom: 3px solid #4e73df; padding-bottom: 16px; margin-bottom: 20px; }
-        .header h2 { color: #4e73df; margin: 0 0 4px 0; font-size: 22px; }
-        .header p { margin: 0; color: #718096; font-size: 12px; }
-        .info-box { background: #f8f9fc; border-left: 4px solid #4e73df; padding: 10px 14px; margin-bottom: 20px; border-radius: 4px; }
-        .info-box strong { color: #4e73df; }
-        .tugas-card { border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
-        .tugas-card-header { background: #4e73df; color: #fff; padding: 8px 14px; font-weight: bold; font-size: 13px; }
-        .tugas-card-body { padding: 12px 14px; }
-        .tugas-meta { color: #718096; font-size: 11px; margin-top: 8px; }
-        .footer { text-align: center; margin-top: 30px; padding-top: 14px; border-top: 1px solid #e2e8f0; color: #718096; font-size: 11px; }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 40px 50px;
+        }
+        h1.judul {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .tanggal-cetak {
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .tanggal-cetak span {
+            font-weight: bold;
+        }
+        hr.garis {
+            border: none;
+            border-top: 1.5px solid #000;
+            margin: 0 0 20px 0;
+        }
+        table.detail {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.detail tr td {
+            padding: 6px 0;
+            vertical-align: top;
+            font-size: 14px;
+        }
+        table.detail tr td:first-child {
+            width: 200px;
+            font-weight: normal;
+        }
+        table.detail tr td.colon {
+            width: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h2>M-Tugas — Laporan Tugas Karyawan</h2>
-        <p>Dicetak pada {{ now()->format('d/m/Y H:i') }}</p>
-    </div>
 
-    <div class="info-box">
-        <strong>Nama:</strong> {{ $user->name }} &nbsp;|&nbsp;
-        <strong>Email:</strong> {{ $user->email }} &nbsp;|&nbsp;
-        <strong>Jabatan:</strong> Karyawan
-    </div>
+    <h1 class="judul">Data Tugas</h1>
+
+    <p class="tanggal-cetak">
+        <span>Tanggal Cetak :</span> {{ now()->format('d-m-Y H.i.s') }}
+    </p>
+
+    <hr class="garis">
 
     @if($tugas->count() === 0)
-        <p style="text-align:center; color:#718096; margin-top:40px;">Tidak ada data tugas.</p>
+        <p style="text-align:center; margin-top:40px;">Tidak ada data tugas.</p>
     @else
-        @foreach($tugas as $i => $t)
-        <div class="tugas-card">
-            <div class="tugas-card-header">Tugas #{{ $i + 1 }}</div>
-            <div class="tugas-card-body">
-                <p style="margin:0 0 8px 0;">{{ $t->tugas }}</p>
-                <div class="tugas-meta">
-                    <strong>Tanggal Mulai:</strong> {{ $t->tgl_mulai ? $t->tgl_mulai->format('d/m/Y') : '-' }}
-                    &nbsp;&nbsp;
-                    <strong>Tanggal Selesai:</strong> {{ $t->tgl_selesai ? $t->tgl_selesai->format('d/m/Y') : '-' }}
-                </div>
-            </div>
-        </div>
+        @foreach($tugas as $t)
+        <table class="detail" style="{{ !$loop->last ? 'margin-bottom:24px; border-bottom:1px solid #ccc; padding-bottom:16px;' : '' }}">
+            <tbody>
+                <tr>
+                    <td>Nama</td>
+                    <td class="colon">:</td>
+                    <td>{{ $user->name }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td class="colon">:</td>
+                    <td>{{ $user->email }}</td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td class="colon">:</td>
+                    <td>Karyawan</td>
+                </tr>
+                <tr>
+                    <td>Tugas</td>
+                    <td class="colon">:</td>
+                    <td>{{ $t->tugas }}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Mulai</td>
+                    <td class="colon">:</td>
+                    <td>{{ $t->tgl_mulai ? $t->tgl_mulai->format('Y-m-d') : '-' }}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Selesai</td>
+                    <td class="colon">:</td>
+                    <td>{{ $t->tgl_selesai ? $t->tgl_selesai->format('Y-m-d') : '-' }}</td>
+                </tr>
+            </tbody>
+        </table>
         @endforeach
     @endif
 
-    <div class="footer">Copyright &copy; M-Tugas {{ date('Y') }} — Aplikasi Manajemen Tugas</div>
 </body>
 </html>

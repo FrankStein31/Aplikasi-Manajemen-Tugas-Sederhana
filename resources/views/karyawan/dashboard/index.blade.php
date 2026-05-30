@@ -15,17 +15,17 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Status</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                             @if($user->status === 'ditugaskan')
-                                <span class="text-success"><i class="fas fa-check-circle mr-2"></i>Ditugaskan</span>
+                                <span class="text-success"></i>Ditugaskan</span>
                             @else
-                                <span class="text-warning"><i class="fas fa-clock mr-2"></i>Belum Ditugaskan</span>
+                                <span class="text-warning"></i>Belum Ditugaskan</span>
                             @endif
                         </div>
                     </div>
                     <div class="col-auto">
                         @if($user->status === 'ditugaskan')
-                            <i class="fas fa-user-check fa-3x text-gray-300"></i>
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
                         @else
-                            <i class="fas fa-user-clock fa-3x text-gray-300"></i>
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
                         @endif
                     </div>
                 </div>

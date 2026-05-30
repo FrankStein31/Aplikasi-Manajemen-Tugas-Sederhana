@@ -7,7 +7,7 @@
     <title>M-Tugas | Beranda</title>
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { font-family: 'Nunito', sans-serif; }
         .navbar-brand { font-weight: 800; font-size: 1.4rem; color: #2d3748 !important; }

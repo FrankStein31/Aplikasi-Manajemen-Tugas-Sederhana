@@ -28,6 +28,45 @@ M-Tugas adalah aplikasi manajemen tugas berbasis web yang dirancang untuk mendis
       <td align="center"><br><b>Halaman Data Tugas Karyawan</b><br><br><img src="https://github.com/user-attachments/assets/5983ecc6-0b7d-4e84-941c-10e7541b3ba8" width="100%" /></td>
     </tr>
   </table>
+
+Tambah User
+<img width="1772" height="1015" alt="image" src="https://github.com/user-attachments/assets/3b88d822-bf5d-4073-9db9-593779337fed" />
+
+Edit User
+<img width="1770" height="1022" alt="image" src="https://github.com/user-attachments/assets/c0e89363-137f-4601-ba7d-f4c89e1031d8" />
+
+Hapus User
+<img width="1766" height="1017" alt="image" src="https://github.com/user-attachments/assets/1f753c2b-237c-452b-911a-299601a4e523" />
+
+Export Excel
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/59dcd68a-1475-471f-88ef-5cde1f17ae3a" />
+
+Export PDF
+<img width="1771" height="1016" alt="image" src="https://github.com/user-attachments/assets/3a7e9db1-c9c6-410a-9c5e-378b7c2887a0" />
+
+Tambah Tugas
+<img width="1771" height="1018" alt="image" src="https://github.com/user-attachments/assets/8cc0d4b3-4f95-41a1-ae2c-6d2037343c3d" />
+
+Edit Tugas
+<img width="1769" height="1018" alt="image" src="https://github.com/user-attachments/assets/6a040b45-9f33-4ba4-b36c-d373b623fe37" />
+
+Hapus Tugas
+<img width="1771" height="1016" alt="image" src="https://github.com/user-attachments/assets/b207c61e-2b48-4c5c-9b07-a82dd55294f7" />
+
+Detail Data Tugas
+<img width="1768" height="1014" alt="image" src="https://github.com/user-attachments/assets/87e3fc48-a459-4506-8a9e-c0a676f36803" />
+
+Export Excel Tugas
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/53766cd7-52da-4366-8aac-caf2e9320999" />
+
+Export PDF Tugas
+<img width="1766" height="1004" alt="image" src="https://github.com/user-attachments/assets/1284b198-e167-4cff-93e1-35c3bced72e3" />
+
+Export PDF Tugas Karyawan
+<img width="1777" height="1012" alt="image" src="https://github.com/user-attachments/assets/9eba5ea1-be41-43c5-b35b-90888ecc90bd" />
+
+
+  
 </details>
 
 ---

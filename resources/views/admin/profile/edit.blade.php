@@ -1,45 +1,82 @@
 @extends('layouts.admin.app')
-@section('title', 'Edit Profile')
+@section('title', 'Edit Password')
 
 @section('content')
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-user-cog mr-2"></i>Edit Profile</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-edit mr-2"></i>Edit Password</h1>
 </div>
 
-<div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Ubah Password</h6>
-            </div>
-            <div class="card-body">
-                <div class="text-center mb-4">
-                    <img class="img-profile rounded-circle mb-3" src="{{ asset('sbadmin/img/undraw_profile.svg') }}" style="width:80px; height:80px;">
-                    <h5 class="font-weight-bold">{{ session('name') }}</h5>
-                    <span class="badge badge-primary">{{ ucfirst(session('jabatan')) }}</span>
+{{-- Yellow bar --}}
+<div style="background: #f6c23e; height: 10px; border-radius: 4px; margin-bottom: 24px;"></div>
+
+<div class="card shadow border-0">
+    <div class="card-body p-4">
+        <form action="{{ route('admin.profile.update') }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            {{-- Password Lama --}}
+            <div class="form-group mb-4">
+                <label class="font-weight-semibold text-gray-700">
+                    <span class="text-danger">*</span> Password Lama :
+                </label>
+                <div class="input-group">
+                    <input
+                        type="password"
+                        name="password_lama"
+                        class="form-control form-control-lg @error('password_lama') is-invalid @enderror"
+                        placeholder=""
+                    >
+                    @error('password_lama')
+                        <div class="input-group-append">
+                            <span class="input-group-text border-danger bg-white text-danger">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </span>
+                        </div>
+                    @enderror
                 </div>
-                <form action="{{ route('admin.profile.update') }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group">
-                        <label>Password Baru <span class="text-danger">*</span></label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Masukkan password baru" required minlength="6">
-                        @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Konfirmasi Password <span class="text-danger">*</span></label>
-                        <input type="password" name="password_confirmation" class="form-control"
-                            placeholder="Ulangi password baru" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">
-                        <i class="fas fa-save mr-1"></i> Simpan Password
-                    </button>
-                </form>
+                @error('password_lama')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
-        </div>
+
+            {{-- Password Baru & Konfirmasi --}}
+            <div class="row">
+                <div class="col-md-6 form-group mb-4">
+                    <label class="font-weight-semibold text-gray-700">
+                        <span class="text-danger">*</span> Password Baru :
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control form-control-lg @error('password') is-invalid @enderror"
+                        placeholder=""
+                    >
+                    @error('password')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-md-6 form-group mb-4">
+                    <label class="font-weight-semibold text-gray-700">
+                        <span class="text-danger">*</span> Konfirmasi Password Baru :
+                    </label>
+                    <input
+                        type="password"
+                        name="password_confirmation"
+                        class="form-control form-control-lg"
+                        placeholder=""
+                    >
+                </div>
+            </div>
+
+            {{-- Tombol Update --}}
+            <div>
+                <button type="submit" class="btn btn-warning text-white px-4">
+                    <i class="fas fa-edit mr-1"></i> Update
+                </button>
+            </div>
+
+        </form>
     </div>
 </div>
 @endsection
